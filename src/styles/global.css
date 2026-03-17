@@ -84,6 +84,15 @@ button {
   padding: 0 12px;
 }
 
+.auth-form__toggle-password {
+  position: relative;
+  left: 340px;
+  bottom: 42px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .auth-form__field label {
     font-weight: 700;
 }
@@ -97,6 +106,7 @@ button {
   padding: 0 16px;
   background: #1a7a83;
   color: white;
+  margin-top: 0px;
 }
 
 .auth-form__signup {

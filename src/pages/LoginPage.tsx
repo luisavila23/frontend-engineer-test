@@ -13,6 +13,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
   const [remember, setRemember] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -80,7 +81,7 @@ export const LoginPage = () => {
             <label htmlFor="password">Constraseña</label>
             <input
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               {...register("password", {
                 required: "Contraseña requerida",
                 minLength: {
@@ -89,6 +90,14 @@ export const LoginPage = () => {
                 },
               })}
             />
+
+            <img
+              src="/ico_eye.svg"
+              className="auth-form__toggle-password"
+              width={26}
+              onClick={() => setShowPassword((prev) => !prev)}
+            />
+
             {errors.password ? (
               <p className="auth-form__error">{errors.password.message}</p>
             ) : null}
