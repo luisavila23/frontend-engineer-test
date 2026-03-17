@@ -251,11 +251,13 @@ export const GamePage = () => {
                         </div>
                       </div>
                     ) : (
-                      <img
-                        src="/ram-portal.png"
-                        alt="Card back"
-                        className="memory-card__image"
-                      />
+                      <div className="memory-card__back">
+                        <img
+                          src="/ram-portal.png"
+                          alt="Card back"
+                          className="memory-card__image"
+                        />
+                      </div>
                     )}
                   </button>
                 ))}

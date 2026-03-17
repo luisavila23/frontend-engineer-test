@@ -1,5 +1,5 @@
 .game-page {
-  height: 100vh;
+  min-height: 100vh;
   padding:20px 12px;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@
 .game-shell {
   width: 100%;
   max-width: 980px;
-  height: 100%;
+  min-height: 960px;
   background: #ece8b2;
   border-radius: 8px;
   padding: 28px;
@@ -67,7 +67,7 @@
   border-radius: 6px;
   overflow: hidden;
   width: 200px;
-  min-height: 260px;
+  height: 230px;
   cursor: pointer;
   display: flex;
   align-items: stretch;
@@ -82,7 +82,7 @@
 .memory-card__front,
 .memory-card__back {
   width: 100%;
-  min-height: 260px;
+  height: 230px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,7 +101,7 @@
 .memory-card__back-image {
   width: 180px;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
   margin-top: 10px;
 }
