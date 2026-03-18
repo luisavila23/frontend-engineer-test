@@ -1,10 +1,13 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { AuthContext } from "./auth-context";
 
 const AUTH_TOKEN_KEY = "auth_token";
+const DEMO_USERNAME = "admin";
+const DEMO_PASSWORD = "1234";
 
 type AuthProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -12,8 +15,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return localStorage.getItem(AUTH_TOKEN_KEY);
   });
 
-  const login = (username: string, password: string) => {
-    if (username.trim() === "admin" && password.trim() === "1234") {
+  const login = useCallback((username: string, password: string) => {
+    if (
+      username.trim() === DEMO_USERNAME &&
+      password.trim() === DEMO_PASSWORD
+    ) {
       const fakeToken = crypto.randomUUID();
       localStorage.setItem(AUTH_TOKEN_KEY, fakeToken);
       setToken(fakeToken);
@@ -21,12 +27,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     return false;
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     localStorage.removeItem(AUTH_TOKEN_KEY);
     setToken(null);
-  };
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -35,7 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       login,
       logout,
     }),
-    [token],
+    [login, logout, token],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

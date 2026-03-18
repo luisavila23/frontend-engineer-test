@@ -121,12 +121,17 @@ button {
   font-weight: 600;
 }
 
-.auth-form__signup {
+.auth-form__link {
   font-weight: 600;
   font-size: 18px;
   line-height: 16px;
   letter-spacing: 0;
   text-align: center;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
 }
 
 .auth-form__error {
