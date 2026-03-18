@@ -124,6 +124,10 @@
   font-size: 12px;
 }
 
+.memory-card--flipped{
+  color: #313d49;
+}
+
 .memory-card__content p {
   margin: 0 0 5px;
   font-size: 10px;
