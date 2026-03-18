@@ -1,8 +1,8 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { useState } from "react";
 
 type LoginFormValues = {
   username: string;
@@ -12,7 +12,7 @@ type LoginFormValues = {
 export const LoginPage = () => {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
-  const [remember, setRemember] = useState<boolean>(false);
+  const [showDemoCredentials, setShowDemoCredentials] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -27,45 +27,48 @@ export const LoginPage = () => {
     },
   });
 
+  const onSubmit: SubmitHandler<LoginFormValues> = useCallback(
+    (data) => {
+      const success = login(data.username, data.password);
+
+      if (!success) {
+        setError("root", {
+          type: "manual",
+          message: "Credenciales invalidas. Intenta con admin / 1234",
+        });
+        return;
+      }
+
+      navigate("/home");
+    },
+    [login, navigate, setError],
+  );
+
+  const toggleShowPassword = useCallback(() => {
+    setShowPassword((previousValue) => !previousValue);
+  }, []);
+
+  const toggleDemoCredentials = useCallback(() => {
+    setShowDemoCredentials((previousValue) => !previousValue);
+  }, []);
+
   if (isAuthenticated) {
     return <Navigate to="/home" replace />;
   }
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
-    const success = login(data.username, data.password);
-
-    if (!success) {
-      setError("root", {
-        type: "manual",
-        message: "Credenciales invalidas. Intenta con admin / 1234",
-      });
-      return;
-    }
-
-    navigate("/home");
-  };
-
   return (
     <main className="page page--centered">
       <section className="auth-card">
-        <img
-          src="../../public/ram.svg"
-          alt="Rick and Morty"
-          className="auth-card__image"
-        />
+        <img src="/ram.svg" alt="Rick and Morty" className="auth-card__image" />
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="auth-form"
-          noValidate
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="auth-form" noValidate>
           <div className="auth-form__field">
             <label htmlFor="username">Usuario</label>
             <input
               id="username"
               type="text"
               {...register("username", {
-                required: "Usuario Requerido",
+                required: "Usuario requerido",
                 minLength: {
                   value: 3,
                   message: "El usuario debe tener al menos 3 caracteres",
@@ -78,7 +81,7 @@ export const LoginPage = () => {
           </div>
 
           <div className="auth-form__field">
-            <label htmlFor="password">Constraseña</label>
+            <label htmlFor="password">Contraseña</label>
             <input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -94,10 +97,8 @@ export const LoginPage = () => {
             <button
               type="button"
               className="auth-form__toggle-password"
-              onClick={() => setShowPassword((prev) => !prev)}
-              aria-label={
-                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
-              }
+              onClick={toggleShowPassword}
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             >
               <img src="/ico_eye.svg" alt="" width={26} />
             </button>
@@ -107,32 +108,24 @@ export const LoginPage = () => {
             ) : null}
           </div>
 
-          {errors.root ? (
-            <p className="auth-form__error">{errors.root.message}</p>
-          ) : null}
+          {errors.root ? <p className="auth-form__error">{errors.root.message}</p> : null}
 
-          <button
-            type="submit"
-            className="auth-form__button"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"}
+          <button type="submit" className="auth-form__button" disabled={isSubmitting}>
+            {isSubmitting ? "Iniciando sesion..." : "Iniciar sesion"}
           </button>
 
-          <p
-            className="auth-form__signup"
-            onClick={() => {
-              setRemember(!remember);
-            }}
+          <button
+            type="button"
+            className="auth-form__link"
+            onClick={toggleDemoCredentials}
           >
             ¿Olvidaste tu usuario o contraseña?
-          </p>
+          </button>
         </form>
 
-        <br />
-        {remember && (
+        {showDemoCredentials ? (
           <p className="auth-card__hint">Credenciales demo: admin / 1234</p>
-        )}
+        ) : null}
       </section>
     </main>
   );
