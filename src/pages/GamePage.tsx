@@ -230,36 +230,44 @@ export const GamePage = () => {
 
               <div className="game-grid">
                 {cards.map((card) => (
-                  <button
-                    key={card.id}
-                    type="button"
-                    className={`memory-card ${card.isFlipped || card.isMatched ? "memory-card--flipped" : ""}`}
-                    onClick={() => handleCardClick(card)}
-                  >
-                    {card.isFlipped || card.isMatched ? (
-                      <div className="memory-card__front">
-                        <img
-                          src={card.image}
-                          alt={card.name}
-                          className="memory-card__image"
-                        />
-                        <div className="memory-card__content">
-                          <h3>{card.name}</h3>
-                          <p>
-                            {card.status} - {card.species}
-                          </p>
+                  card.isMatched ? (
+                    <div
+                      key={card.id}
+                      className="memory-card memory-card--removed"
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <button
+                      key={card.id}
+                      type="button"
+                      className={`memory-card ${card.isFlipped ? "memory-card--flipped" : ""}`}
+                      onClick={() => handleCardClick(card)}
+                    >
+                      {card.isFlipped ? (
+                        <div className="memory-card__front">
+                          <img
+                            src={card.image}
+                            alt={card.name}
+                            className="memory-card__image"
+                          />
+                          <div className="memory-card__content">
+                            <h3>{card.name}</h3>
+                            <p>
+                              {card.status} - {card.species}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="memory-card__back">
-                        <img
-                          src="/ram-portal.png"
-                          alt="Card back"
-                          className="memory-card__image"
-                        />
-                      </div>
-                    )}
-                  </button>
+                      ) : (
+                        <div className="memory-card__back">
+                          <img
+                            src="/ram-portal.png"
+                            alt="Card back"
+                            className="memory-card__image"
+                          />
+                        </div>
+                      )}
+                    </button>
+                  )
                 ))}
               </div>
             </>

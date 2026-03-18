@@ -79,6 +79,11 @@
   cursor: default;
 }
 
+.memory-card--removed {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .memory-card__front,
 .memory-card__back {
   width: 100%;
