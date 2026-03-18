@@ -96,7 +96,7 @@ export const LoginPage = () => {
               className="auth-form__toggle-password"
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={
-                showPassword ? "Ocultar contraseÃ±a" : "Mostrar contraseÃ±a"
+                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
               }
             >
               <img src="/ico_eye.svg" alt="" width={26} />
