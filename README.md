@@ -49,6 +49,18 @@ Before running this project, make sure you have the following installed:
 - **Node.js** `20.19.0` or higher
 - **npm**
 
+You can install it using **nvm** 
+
+```bash
+nvm install 20.19.0
+```
+
+and use it 
+
+```bash
+nvm use 20.19.0
+```
+
 ---
 
 ## Installation and Running the Project
