@@ -91,12 +91,16 @@ export const LoginPage = () => {
               })}
             />
 
-            <img
-              src="/ico_eye.svg"
+            <button
+              type="button"
               className="auth-form__toggle-password"
-              width={26}
               onClick={() => setShowPassword((prev) => !prev)}
-            />
+              aria-label={
+                showPassword ? "Ocultar contraseÃ±a" : "Mostrar contraseÃ±a"
+              }
+            >
+              <img src="/ico_eye.svg" alt="" width={26} />
+            </button>
 
             {errors.password ? (
               <p className="auth-form__error">{errors.password.message}</p>

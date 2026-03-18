@@ -34,7 +34,6 @@
 .game-shell {
   width: 100%;
   max-width: 980px;
-  min-height: 960px;
   background: #ece8b2;
   border-radius: 8px;
   padding: 28px;
@@ -48,15 +47,16 @@
 .game-stats {
   display: flex;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
   margin-bottom: 16px;
   font-weight: 700;
 }
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 15px;
-  justify-content: center;
   margin-top: 20px;
 }
 
@@ -66,13 +66,13 @@
   background: #8bd6e4;
   border-radius: 6px;
   overflow: hidden;
-  width: 200px;
-  height: 230px;
+  width: 100%;
+  aspect-ratio: 200 / 230;
+  min-height: 170px;
   cursor: pointer;
   display: flex;
   align-items: stretch;
   justify-content: stretch;
-  margin-top: 10px;
 }
 
 .memory-card--preview {
@@ -82,7 +82,7 @@
 .memory-card__front,
 .memory-card__back {
   width: 100%;
-  height: 230px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,11 +99,11 @@
 
 .memory-card__image,
 .memory-card__back-image {
-  width: 180px;
-  height: 180px;
+  width: clamp(80px, 70%, 180px);
+  height: clamp(80px, 70%, 180px);
   object-fit: contain;
   border-radius: 8px;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .memory-card__content {
@@ -126,6 +126,7 @@
 .game-shell__actions {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 24px;
 }
@@ -172,4 +173,54 @@
 .game-finished p {
   margin: 0;
   font-size: 18px;
+}
+
+@media (max-width: 900px) {
+  .game-shell {
+    padding: 20px;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .game-page {
+    padding: 12px;
+  }
+
+  .game-shell {
+    padding: 14px;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .game-shell__title {
+    font-size: 18px;
+  }
+
+  .game-stats {
+    font-size: 14px;
+  }
+
+  .game-button {
+    width: 100%;
+  }
+
+  .game-shell__actions {
+    gap: 10px;
+  }
+
+  .game-finished h2 {
+    font-size: 28px;
+  }
+
+  .game-finished p {
+    font-size: 16px;
+  }
 }

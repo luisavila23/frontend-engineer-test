@@ -40,7 +40,7 @@ button {
 
 .auth-card__image {
   display: block;
-  width: 240px;
+  width: min(240px, 100%);
   margin: 0 auto 24px;
 }
 
@@ -74,6 +74,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .auth-form__field input {
@@ -85,12 +86,17 @@ button {
 }
 
 .auth-form__toggle-password {
-  position: relative;
-  left: 340px;
-  bottom: 42px;
+  position: absolute;
+  right: 10px;
+  top: 40px;
   background: transparent;
   border: none;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
 }
 
 .auth-form__field label {
@@ -125,6 +131,36 @@ button {
 
 .home-card__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 16px;
+}
+
+.home-card__actions button {
+  flex: 1 1 160px;
+}
+
+@media (max-width: 640px) {
+  .page,
+  .page--centered {
+    padding: 16px;
+  }
+
+  .auth-card,
+  .home-card {
+    padding: 16px;
+  }
+
+  .auth-form__toggle-password {
+    top: 38px;
+  }
+
+  .home-card__actions {
+    flex-direction: column;
+  }
+
+  .home-card__actions button {
+    width: 100%;
+    flex-basis: auto;
+  }
 }
